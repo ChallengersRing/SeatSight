@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeatSight</title>
+    <link rel="icon" type="image/png" href="/static/images/logos/favicon.png">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body>
+    <nav class="navbar flex">
+        <div class="nav_left flex">
+            <a class="menu__link" href="#">
+                <img src="/static/images/logos/seatsight.svg" alt="SeatSight" />
+            </a>
+        </div>
+        <div class='nav_right flex'>
+            <a class="menu__link" href="#" id="test_btn">Test Model</a>
+            <a class="menu__link" href="#" id="signout_btn">Sign Out</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="header" style="margin: 0px;">
+            <h2>Try the API</h2>
+            <p>
+                Have a go using our API by uploading an image and watch as
+                <a href="https://github.com/abhay-x" style="font-weight: 500;"> SeatSight </a>
+                identifies seating availability. 📟🪑🔍
+            </p>
+        </div>
+        <div class="detection_container">
+            <div class="image_box">
+                <div class="preview">
+                    <span class="material-symbols-outlined"> upload </span>
+                    <p>Drag and drop your image here, or</p>
+                    <p><span class="fake_link">open</span> from your computer </p>
+                </div>
+                <input class="frame_input" type="file" accept="image/*">
+            </div>
+
+            <div class="customizers">
+                <div class="about_model">
+                    <h3>Presets:</h3>
+                    <p>Model: YOLOv3</p>
+                    <p>Image Size: 640*640</p>
+                    <p>Confidence Threshold:</p>
+                    <p>IoU Threshold:</p>
+                </div>
+                <div class="predictions">
+                    <h3>Predictions:</h3>
+                    <p class="result"></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const input = document.querySelector('.frame_input');
+    input.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        console.log(file);
+        const reader = new FileReader();
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+        reader.addEventListener('load', function () {
+            var img = document.createElement("img");
+            img.setAttribute("src", reader.result);
+            img.setAttribute("class", "dataframe");
+            document.querySelector(".preview").innerHTML = "";
+            document.querySelector(".preview").appendChild(img);
+            //processFrame(reader.result);
+            processFrame(file);
+        });
+    });
+
+    function processFrame(frame) {
+        const url = "/process_image/";
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        const formData = new FormData();
+        formData.append("image", frame);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var jsonResponse = xhr.response;
+                    var response = JSON.parse(jsonResponse)
+                    document.querySelector(".dataframe").setAttribute("src", "data:image/jpeg;base64," + response.image);
+                    document.querySelector(".result").innerText = "Chairs:" + response.data[1] +
+                        "\nPersons:" + response.data[2] + "\nVacant Chairs:" + response.data[4];
+                    console.log(response.data);
+                } else {
+                    console.log("Error:", xhr.status, response);
+                }
+            }
+        };
+        xhr.send(formData);
+    }
+</script>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'poppins', sans-serif;
+        box-sizing: border-box;
+        background-color: var(--bg-color);
+    }
+
+    a {
+        text-decoration: none;
+        color: #000;
+    }
+
+    .icon {
+        height: 25px;
+        width: 25px;
+    }
+
+    .flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .navbar {
+        height: 56px;
+        padding: 0 25px;
+        justify-content: space-between;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        background: #161313;
+        position: sticky;
+        top: 0;
+        /* z-index: 1; */
+        background-color: var(--bg-color);
+    }
+
+    .nav_right a {
+        margin-left: 20px;
+    }
+
+    .fake_link {
+        text-decoration: underline;
+        color: rgb(14, 123, 111);
+    }
+
+    .content {
+        padding: 78px 70px 78px 70px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image_box {
+        position: relative;
+        border: 4px dashed #E4E6ED;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+    }
+
+    .preview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .customizers {
+        /* border: 1px solid rgb(0, 255, 42); */
+        display: flex;
+        padding: 15px;
+    }
+
+    .customizers div {
+        max-width: 240px;
+    }
+
+    .image_box input[type="file"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .image_box img {
+        width: 480px;
+        height: 480px;
+        object-fit: contain;
+    }
+
+    .image_box:hover {
+        border: 4px dashed #61dfce;
+    }
+
+    .material-symbols-outlined {
+        font-variation-settings:
+            'FILL' 0,
+            'wght' 200,
+            'GRAD' 200,
+            'opsz' 48
+    }
+
+    @media (min-width: 900px) {
+        .detection_container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .image_box {
+            min-width: 480px;
+            min-height: 480px;
+            width: 50vw;
+        }
+
+        .customizers {
+            flex-direction: column;
+        }
+
+        .customizers div {
+            flex: 1;
+        }
+
+    }
+
+    /* smaller screen */
+    @media (max-width: 900px) {
+        .detection_container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image_box {
+            max-width: 480px;
+            max-height: 480px;
+            aspect-ratio: 1/1;
+        }
+
+        .customizers div {
+            max-width: 240px;
+            flex: 1;
+        }
+
+
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+
+</html>

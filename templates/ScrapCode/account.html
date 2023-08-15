@@ -1,0 +1,44 @@
+{% load static %}
+<title>account | SeatSight</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/account.css' %}">
+<!-- <script src="../static/js/account.js"></script> -->
+<div class="main-content">
+    <div class="container">
+        <div class="form-box">
+            <h1 id="title">Sign In</h1>
+            <form id="account" action="signin/">
+                {% csrf_token %}
+                <div class="input-group">
+                    <div class="input-group" id="nameField" style="display: none;">
+                        <i class="fa-solid fa-user"></i>
+                        <input name="first_name" type="text" placeholder="First name">
+                        <input name="last_name" type="text" placeholder="Last name">
+                    </div>
+
+                    <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input name="email" type="email" placeholder="Email">
+                    </div>
+
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input name="password" type="password" placeholder="Password">
+                    </div>
+                    {% comment %} <p>forgot password <a href="#">Click Here!</a></p> {% endcomment %}
+                </div>
+
+                <div class="btn-field">
+                    <button type="submit" id="signupBtn" style="display: none;">Sign up</button>
+                    <button type="submit" id="signinBtn">Sign in</button>
+                </div>
+            </form>
+            <p id="cr_act">New User? <a href="#">Create account</a> </p>
+            <p id="lg_act" style="display: none;">Already a User? <a href="#">Sign in</a> </p>
+
+            <p id="result"></p>
+        </div>
+    </div>
+    <script src="../static/js/account.js"></script>
+    <script src="https://kit.fontawesome.com/4c129cbadc.js" crossorigin="anonymous"></script>
+</div>

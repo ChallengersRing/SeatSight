@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/static/images/logos/favicon.png">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <title>{% block title %}{% endblock title %} | Seat Sight</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/webcam.js"></script>
+</head>
+
+<body>
+    <!-- NavBar -->
+    <nav class="main-nav">
+        <ul class="menu">
+            <li class="menu__item to-left">
+                <a class="menu__link" href="#" id="home_btn">
+                    <img src="/static/images/logos/seatsight.svg" alt="SeatSight">
+                </a>
+            </li>
+            <li class="menu__item">
+                <a class="menu__link" href="#" id="test_btn">Test Model</a>
+            </li>
+            <li class="menu__item">
+                <a class="menu__link" href="{% url 'signout' %}" id="signout_btn">Sign Out</a>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        {%block body%}{%endblock body%}
+    </main>
+
+    <footer>
+
+    </footer>
+</body>
+
+</html>

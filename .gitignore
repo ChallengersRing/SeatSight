@@ -1,0 +1,13 @@
+.temp
+.vscode
+utils/user_images/
+utils/yolov3/
+utils/yolov5/
+utils/.key
+utils/abc.py
+utils/log_file.log
+utils/codes.txt
+utils/cmd.txt
+seat_detector/__pycache__/
+seatsight/__pycache__/
+db.sqlite3
