@@ -5,8 +5,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # CSRF_COOKIE_SECURE=True
 # SESSION_COOKIE_SECURE=True
 DEBUG = True
-ALLOWED_HOSTS = ["*","127.0.0.1","www.seatsight.me","seatsight.me","seatsight.centralindia.cloudapp.azure.com","20.193.131.223"]
-INTERNAL_IPS = ["127.0.0.1",]
+ALLOWED_HOSTS = ["127.0.0.1"]
+INTERNAL_IPS = ["127.0.0.1"]
 ROOT_URLCONF = "seatsight.urls"
 WSGI_APPLICATION = "seatsight.wsgi.application"
 # ASGI_APPLICATION = "seatsight.asgi.application"
@@ -39,11 +39,13 @@ DATABASES = {
 }
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-KEY_PATH = os.path.join(BASE_DIR, 'utils', '.key')
-with open(KEY_PATH, 'r') as key_file:
-    SECRET_KEY = key_file.read().strip()
-if not SECRET_KEY:
-    raise ValueError("SECRET_KEY not found in the specified file.")
+# This key is only used for local development
+SECRET_KEY = "ra9&u3&pqg6bzv*3j67%erc99d8zp(hr5u*bo!-kmw55pijn&4"
+# KEY_PATH = os.path.join(BASE_DIR, 'utils', '.key')
+# with open(KEY_PATH, 'r') as key_file:
+#     SECRET_KEY = key_file.read().strip()
+# if not SECRET_KEY:
+#     raise ValueError("SECRET_KEY not found in the specified file.")
 
 
 INSTALLED_APPS = [

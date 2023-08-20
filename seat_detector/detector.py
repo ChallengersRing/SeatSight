@@ -17,16 +17,14 @@ class Detector:
             self.__classes = [line.strip() for line in f.readlines()]
 
     # Public API
-    def predict(self, frame, iou_threshold=0.5):
+    def predict(self, frame, iou_threshold=0.3):
         """
         Predicts chair occupancy in a given frame.
 
         Args:
             frame (numpy.ndarray): The input image frame.
-            iou_threshold (float, optional): IoU threshold for occupancy check. Default is 0.5.
-            height_alignment_threshold (float, optional): Height alignment threshold for chair and person. Default is 0.1.
-            vertical_range (int, optional): Vertical range for chair and person alignment. Default is 50.
-
+            iou_threshold (float, optional): IoU threshold for occupancy check. Default is 0.3.
+            
         Returns:
             numpy.ndarray: The input frame with bounding boxes drawn.
             list: List containing information about detected objects.
@@ -39,8 +37,8 @@ class Detector:
         logger.info(f'Persons({len(person_boxes)}) : {person_boxes} {person_confidences}')
         # for chair in chair_boxes:
         #     self.__draw_bounding_boxes(frame, chair, chair[0], "chair", (245,245,114))
-        for person in person_boxes:
-            self.__draw_bounding_boxes(frame, person, person[0], "human", (6, 85, 63))
+        # for person in person_boxes:
+        #     self.__draw_bounding_boxes(frame, person, person[0], "human", (6, 85, 63))
         
         chair_indices = self.__perform_NMS(chair_boxes, chair_confidences, 0.5, 0.5)
         logger.info(f'chair indices : {chair_indices}')

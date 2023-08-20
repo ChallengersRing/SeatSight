@@ -22,21 +22,16 @@ There are several ways you can contribute to the SeatSight project:
 
 To contribute code to SeatSight, follow these steps:
 
-1. Fork this repository.
-
-2. Create a new branch on your fork for your contribution:
-
+1. Create an issue
+2. Fork this repository.
+3. Create a new branch on your fork for your contribution:
 ```shell
-git checkout -b my-feature
+    git checkout -b my-feature
 ```
-
 3. Make your changes, and ensure that your code adheres to the project's coding style.
-
 4. Commit your changes and push them to your fork:
-
 ```shell
-git commit -m "Add my feature"
-git push origin my-feature
+    git commit -m "[Issue Number]"
+    git push origin my-feature
 ```
-
 5. Create a pull request from your branch to the main repository's main branch.

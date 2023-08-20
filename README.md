@@ -1,4 +1,4 @@
-# SeatSight: An Open-Source Solution for Public Spaces
+# SeatSight: A Solution for Public Spaces
 
 SeatSight is an innovative system designed to detect empty seats in public places using camera feeds and advanced computer vision techniques. This repository contains the source code and resources for the SeatSight project.
 
@@ -30,7 +30,9 @@ SeatSight aims to optimize seating availability and improve user experiences in 
 
 
 ## Demo
-
+<img src="utils/demo/image1.png" width="300" height="200"/>
+<img src="utils/demo/image2.png" width="300" height="200"/>
+<img src="utils/demo/image3.png" width="300" height="200"/>
 
 
 ## Getting Started
@@ -41,20 +43,37 @@ Follow these steps to set up and run the SeatSight project on your local environ
 
 - Python (3.7 or higher)
 - Django (version 4.1.4, see [requirements.txt](requirements.txt))
-- [Optional] YOLOv3 model weights and configuration files (can be downloaded from [link to model](https://github.com/ultralytics/yolov3))
-- [Optional] Additional dependencies mentioned in [requirements.txt](requirements.txt)
+- Download the YOLOv3 model files (weights and configuration) and place them in the appropriate directory.
+- YOLOv3 model weights and configuration files (can be downloaded from [here](https://github.com/ultralytics/yolov3))
+- Additional dependencies mentioned in [requirements.txt](requirements.txt)
 
 ### Installation
+1. Clone this repository.
+```shell 
+   git clone https://github.com/yahvi/SeatSight.git 
+```
 
-1. Clone this repository:
+2. Create a virtual environment and activate.
+```shell 
+   python -m venv .temp 
+```
+```shell 
+   [Windows:] .temp\Scripts\activate 
+```
+```shell 
+   [Linux:] source .temp/bin/activate 
+```
 
-2. Install the required Python packages:
-
-
-3. [Optional] Download the YOLOv3 model files (weights and configuration) and place them in the appropriate directory.
+3. Install the required Python packages and Dependencies.
+```shell
+   [Nvidia GPU only] pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+   pip install -r requirements.txt
+```
 
 4. Run the Django development server:
-
+```shell
+   py manage.py runserver 
+```
 
 The system should now be accessible at `http://localhost:8000/`.
 
@@ -76,9 +95,10 @@ The system should now be accessible at `http://localhost:8000/`.
 1. **Real-time Updates**: The system continuously analyzes the camera feed and updates the seat occupancy status in real-time.
 
 2. **Occupancy Statistics**: On the web interface, you may find occupancy statistics that provide insights into the current state:
-   - Total Chairs: The overall number of chairs in the monitored area.
-   - Occupied Chairs: The count of chairs with detected occupants.
-   - Vacant Chairs: The count of unoccupied chairs.
+
+   - **Total Chairs**: The overall number of chairs in the monitored area.
+   - **Occupied Chairs**: The count of chairs with detected occupants.
+   - **Vacant Chairs**: The count of unoccupied chairs.
 
 3. **Dynamic Visualization**: As individuals occupy or vacate chairs, the web interface dynamically updates the seat status, providing a visual representation of the changing occupancy patterns.
 
